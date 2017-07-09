@@ -52,11 +52,11 @@ class Useractivitylog extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_id' => 'User ID',
-            'ip' => 'Ip',
-            'msg' => 'Msg',
-            'created_at' => 'Created At',
-            'type' => 'Type',
+            'user_id' => Yii::t('ulog', 'User ID'),
+            'ip' => Yii::t('ulog', 'Ip'),
+            'msg' => Yii::t('ulog', 'Msg'),
+            'created_at' => Yii::t('ulog', 'Created At'),
+            'type' => Yii::t('ulog', 'Type'),
         ];
     }
 

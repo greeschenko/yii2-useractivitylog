@@ -1,9 +1,10 @@
 <?php
 
+use Yii;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 
-$this->title = 'Logs';
+$this->title = Yii::t('ulog', 'Logs');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="logs-index">

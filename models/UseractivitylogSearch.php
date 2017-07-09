@@ -53,6 +53,8 @@ class UseractivitylogSearch extends Useractivitylog
             return $dataProvider;
         }
 
+        $query->orderBy('created_at DESC');
+
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
