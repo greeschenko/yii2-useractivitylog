@@ -16,12 +16,21 @@ use Yii;
  */
 class Useractivitylog extends \yii\db\ActiveRecord
 {
+    public $module;
+
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
         return '{{%useractivitylog}}';
+    }
+
+    public function init()
+    {
+        parent::init();
+
+        $this->module = Yii::$app->getModule('loger');
     }
 
     public function beforeSave($insert)
@@ -57,6 +66,7 @@ class Useractivitylog extends \yii\db\ActiveRecord
             'msg' => Yii::t('ulog', 'Msg'),
             'created_at' => Yii::t('ulog', 'Created At'),
             'type' => Yii::t('ulog', 'Type'),
+            'useremail' => Yii::t('ulog', 'User Email'),
         ];
     }
 
@@ -99,5 +109,10 @@ class Useractivitylog extends \yii\db\ActiveRecord
         }
 
         return $ipaddress;
+    }
+
+    public function getUser()
+    {
+        return $this->hasOne($this->module->userclass, ['id' => 'user_id']);
     }
 }

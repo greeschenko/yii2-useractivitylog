@@ -9,10 +9,16 @@ class Module extends \yii\base\Module
     const VER = '0.1-dev';
 
     public $i18n = [];
+    public $userclass;
 
     public function init()
     {
         parent::init();
+
+        if (!$this->userclass) {
+            throw new \yii\web\HttpException(501, 'user class not specified in the config file');
+        }
+
         $this->initI18N();
 
         $this->components = [

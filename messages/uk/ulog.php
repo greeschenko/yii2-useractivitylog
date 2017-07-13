@@ -8,4 +8,5 @@ return [
     'Created At' => 'Створено',
     'Type' => 'Тип',
     'Logs' => 'Система логування',
+    'User Email' => 'Email користувача',
 ];

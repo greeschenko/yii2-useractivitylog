@@ -7,6 +7,8 @@ use yii\data\ActiveDataProvider;
 
 class UseractivitylogSearch extends Useractivitylog
 {
+    public $useremail;
+
     /**
      * {@inheritdoc}
      */
@@ -16,6 +18,7 @@ class UseractivitylogSearch extends Useractivitylog
             [['user_id', 'created_at', 'type'], 'integer'],
             [['msg'], 'string'],
             [['ip'], 'string', 'max' => 255],
+            [['useremail'], 'safe'],
         ];
     }
 
@@ -39,11 +42,18 @@ class UseractivitylogSearch extends Useractivitylog
     {
         $query = Useractivitylog::find();
 
+        $query->joinWith(['user u']);
+
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
+        $dataProvider->sort->attributes['useremail'] = [
+            'asc' => ['u.email' => SORT_ASC],
+            'desc' => ['u.email' => SORT_DESC],
+        ];
 
         $this->load($params);
 
@@ -65,7 +75,9 @@ class UseractivitylogSearch extends Useractivitylog
             'type' => $this->type,
         ]);
 
-        $query->andFilterWhere(['like', 'msg', $this->msg]);
+        //$query->andFilterWhere(['like', 'msg', $this->msg]);
+
+        $query->andFilterWhere(['like', 'u.email', $this->useremail]);
 
         return $dataProvider;
     }

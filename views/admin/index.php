@@ -1,6 +1,5 @@
 <?php
 
-use Yii;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 
@@ -17,6 +16,12 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             //'id',
             'user_id',
+            [
+                'attribute' => 'useremail',
+                'content' => function ($data) {
+                    return $data->user->email;
+                },
+            ],
             'ip',
             'msg',
             'created_at:datetime',
