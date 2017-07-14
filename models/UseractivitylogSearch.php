@@ -8,6 +8,7 @@ use yii\data\ActiveDataProvider;
 class UseractivitylogSearch extends Useractivitylog
 {
     public $useremail;
+    public $created_at_period;
 
     /**
      * {@inheritdoc}
@@ -18,7 +19,7 @@ class UseractivitylogSearch extends Useractivitylog
             [['user_id', 'created_at', 'type'], 'integer'],
             [['msg'], 'string'],
             [['ip'], 'string', 'max' => 255],
-            [['useremail'], 'safe'],
+            [['useremail', 'created_at_period'], 'safe'],
         ];
     }
 
@@ -76,8 +77,17 @@ class UseractivitylogSearch extends Useractivitylog
         ]);
 
         //$query->andFilterWhere(['like', 'msg', $this->msg]);
+        //
+        $from = 0;
+        $to = time();
+        $period_list = explode(' - ', $this->created_at_period);
+        if (count($period_list) == 2) {
+            $from = strtotime($period_list[0]);
+            $to = strtotime($period_list[1]);
+        }
 
         $query->andFilterWhere(['like', 'u.email', $this->useremail]);
+        $query->andFilterWhere(['between', 'useractivitylog.created_at', $from, $to]);
 
         return $dataProvider;
     }
