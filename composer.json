@@ -14,7 +14,8 @@
     "require": {
         "yiisoft/yii2": "*",
         "yiisoft/yii2-bootstrap": "*",
-        "fortawesome/font-awesome": "~4.7"
+        "fortawesome/font-awesome": "~4.7",
+        "kartik-v/yii2-date-range": "*"
     },
     "autoload": {
         "psr-4": {
