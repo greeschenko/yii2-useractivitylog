@@ -7,6 +7,7 @@ use yii\data\ActiveDataProvider;
 
 class UseractivitylogSearch extends Useractivitylog
 {
+    public $users;
     public $useremail;
     public $created_at_period;
 
@@ -46,6 +47,9 @@ class UseractivitylogSearch extends Useractivitylog
         $query->joinWith(['user u']);
 
         // add conditions that should always apply here
+        if ($this->users != '') {
+            $query->where(['user_id' => $this->users]);
+        }
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
