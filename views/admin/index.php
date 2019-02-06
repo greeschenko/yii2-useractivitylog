@@ -22,7 +22,11 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'useremail',
                 'content' => function ($data) {
-                    return $data->user->email;
+                    if (isset($data->user) and $data->user->email != '') {
+                        return $data->user->email;
+                    }
+
+                    return '';
                 },
             ],
 
