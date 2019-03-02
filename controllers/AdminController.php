@@ -6,6 +6,7 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use greeschenko\useractivitylog\models\UseractivitylogSearch;
+use greeschenko\useractivitylog\models\UsererrorlogSearch;
 
 class AdminController extends Controller
 {
@@ -18,7 +19,8 @@ class AdminController extends Controller
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
-                    ['allow' => true,
+                    [
+                        'allow' => true,
                         'matchCallback' => function ($rule, $action) {
                             return !Yii::$app->user->isGuest
                                 and Yii::$app->user->identity->role == 'admin';
@@ -35,6 +37,17 @@ class AdminController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionErrors()
+    {
+        $searchModel = new UsererrorlogSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('errors', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
