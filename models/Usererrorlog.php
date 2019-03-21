@@ -48,7 +48,6 @@ class Usererrorlog extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id'], 'required'],
             [['user_id', 'created_at', 'code'], 'integer'],
             [['msg'], 'string'],
             [['ip'], 'string', 'max' => 255],
