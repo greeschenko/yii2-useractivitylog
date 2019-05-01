@@ -20,7 +20,7 @@ class UseractivitylogSearch extends Useractivitylog
             [['user_id', 'created_at', 'type'], 'integer'],
             [['msg'], 'string'],
             [['ip'], 'string', 'max' => 255],
-            [['useremail', 'created_at_period'], 'safe'],
+            [['useremail', 'created_at_period', 'msg'], 'safe'],
         ];
     }
 
@@ -80,8 +80,10 @@ class UseractivitylogSearch extends Useractivitylog
             'type' => $this->type,
         ]);
 
-        //$query->andFilterWhere(['like', 'msg', $this->msg]);
-        //
+        if ($this->msg != '') {
+            $query->andFilterWhere(['like', 'msg', $this->msg]);
+        }
+
         $from = 0;
         $to = time();
         $period_list = explode(' - ', $this->created_at_period);
