@@ -36,7 +36,11 @@ class Useractivitylog extends \yii\db\ActiveRecord
     public function beforeSave($insert)
     {
         $this->created_at = time();
-        $this->user_id = Yii::$app->user->identity->id;
+        if (!Yii::$app->user->isGuest) {
+            $this->user_id = Yii::$app->user->identity->id;
+        }else{
+            $this->user_id = 0;
+        }
         $this->ip = $this->getClientIP();
 
         return parent::beforeSave($insert);
